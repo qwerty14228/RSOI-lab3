@@ -45,14 +45,6 @@ jobs:
           ./scripts/wait-script.sh
         env:
           WAIT_PORTS: 8080,8070,8060,8050
-
-      - name: Run API Tests
-        timeout-minutes: 5
-        run: ./scripts/test-script.sh
-        env:
-          VARIANT: v4
-          SERVICE_NAME: rating
-          PORT_NUMBER: 8050
           LIBRARY_POSTGRES_USER: "${{ secrets.LIBRARY_POSTGRES_USER }}"
           LIBRARY_POSTGRES_PASSWORD: "${{ secrets.LIBRARY_POSTGRES_PASSWORD }}"
           LIBRARY_POSTGRES_DB: "${{ secrets.LIBRARY_POSTGRES_DB }}"
@@ -63,6 +55,14 @@ jobs:
           RESERVATION_POSTGRES_PASSWORD: "${{ secrets.RESERVATION_POSTGRES_PASSWORD }}"
           RESERVATION_POSTGRES_DB: "${{ secrets.RESERVATION_POSTGRES_DB }}"
 
+      - name: Run API Tests
+        timeout-minutes: 5
+        run: ./scripts/test-script.sh
+        env:
+          VARIANT: v4
+          SERVICE_NAME: rating
+          PORT_NUMBER: 8050
+
       - uses: education/autograding@v1
         id: autograder
         continue-on-error: true
@@ -70,6 +70,4 @@ jobs:
       - name: Stop containers
         if: always()
         continue-on-error: true
-        run: |
-          docker compose logs
-          docker compose down -v
+        run: docker compose down -v
