@@ -2,3 +2,8 @@
   fields:
     username: "rsoi-user"
     stars: 50
+
+- model: rsoi_rating_app.rating
+  fields:
+    username: "Test Max"
+    stars: 75
