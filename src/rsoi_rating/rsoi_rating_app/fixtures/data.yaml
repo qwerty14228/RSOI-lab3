@@ -1,0 +1,4 @@
+- model: rsoi_rating_app.rating
+  fields:
+    username: "rsoi-user"
+    stars: 50

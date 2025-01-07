@@ -1,20 +1,120 @@
 version: "3"
 services:
-  postgres:
+  library-postgres:
     image: library/postgres:13
-    container_name: postgres
+    container_name: library-postgres
+    pull_policy: if_not_present
     restart: on-failure
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB: postgres
+      POSTGRES_USER: ${LIBRARY_POSTGRES_USER}
+      POSTGRES_PASSWORD: "${LIBRARY_POSTGRES_PASSWORD}"
+      POSTGRES_DB: ${LIBRARY_POSTGRES_DB}
     volumes:
-      - db-data:/var/lib/postgresql/data
-      - ./postgres/:/docker-entrypoint-initdb.d/
+      - library-postgres-data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
-
-# TODO добавить сервисы
-
+      - 5432:5432
+  rating-postgres:
+    image: library/postgres:13
+    container_name: rating-postgres
+    pull_policy: if_not_present
+    restart: on-failure
+    environment:
+      POSTGRES_USER: ${RATING_POSTGRES_USER}
+      POSTGRES_PASSWORD: "${RATING_POSTGRES_PASSWORD}"
+      POSTGRES_DB: ${RATING_POSTGRES_DB}
+    volumes:
+      - rating-postgres-data:/var/lib/postgresql/data
+  reservation-postgres:
+    image: library/postgres:13
+    container_name: reservation-postgres
+    pull_policy: if_not_present
+    restart: on-failure
+    environment:
+      POSTGRES_USER: ${RESERVATION_POSTGRES_USER}
+      POSTGRES_PASSWORD: "${RESERVATION_POSTGRES_PASSWORD}"
+      POSTGRES_DB: ${RESERVATION_POSTGRES_DB}
+    volumes:
+      - reservation-postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5433:5432
+  library:
+    depends_on: 
+      - library-postgres 
+    image: library:latest
+    container_name: library
+    pull_policy: never 
+    build: 
+      args:
+        SERVICE: library
+    environment: 
+      PORT: 8060
+      ALLOWED_HOSTS: "library,localhost"
+      POSTGRES_HOST: "library-postgres"
+      POSTGRES_USER: ${LIBRARY_POSTGRES_USER}
+      POSTGRES_PASSWORD: "${LIBRARY_POSTGRES_PASSWORD}"
+      POSTGRES_DB: ${LIBRARY_POSTGRES_DB}
+    restart: on-failure
+    ports: 
+      - "8060:8060"
+  rating:
+    depends_on: 
+      - rating-postgres 
+    image: rating:latest
+    container_name: rating
+    pull_policy: never 
+    build: 
+      args:
+        SERVICE: rating
+    environment: 
+      PORT: 8050
+      ALLOWED_HOSTS: "rating,localhost"
+      POSTGRES_HOST: "rating-postgres"
+      POSTGRES_USER: ${RATING_POSTGRES_USER}
+      POSTGRES_PASSWORD: "${RATING_POSTGRES_PASSWORD}"
+      POSTGRES_DB: ${RATING_POSTGRES_DB}
+    restart: on-failure
+    ports: 
+      - "8050:8050"
+  reservation:
+    depends_on: 
+      - reservation-postgres 
+    image: reservation:latest
+    container_name: reservation
+    pull_policy: never 
+    build: 
+      args:
+        SERVICE: reservation
+    environment: 
+      PORT: 8070
+      ALLOWED_HOSTS: "reservation,localhost"
+      POSTGRES_HOST: "reservation-postgres"
+      POSTGRES_USER: ${RESERVATION_POSTGRES_USER}
+      POSTGRES_PASSWORD: "${RESERVATION_POSTGRES_PASSWORD}"
+      POSTGRES_DB: ${RESERVATION_POSTGRES_DB}
+    restart: on-failure
+    ports: 
+      - "8070:8070"
+  gateway: 
+    depends_on: 
+      - library
+      - rating
+      - reservation
+    image: gateway:latest
+    container_name: gateway
+    pull_policy: never 
+    build: 
+      args:
+        SERVICE: gateway
+    environment: 
+      PORT: 8080
+      ALLOWED_HOSTS: "gateway,localhost"
+      LIBRARY_API_URL: "http://library:8060/api/v1"
+      RATING_API_URL: "http://rating:8050/api/v1"
+      RESERVATION_API_URL: "http://reservation:8070/api/v1"
+    restart: on-failure
+    ports: 
+      - "8080:8080"
 volumes:
-  db-data:
+  library-postgres-data:
+  rating-postgres-data:
+  reservation-postgres-data:

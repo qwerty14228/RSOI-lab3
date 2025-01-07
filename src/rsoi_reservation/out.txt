@@ -1,0 +1,199 @@
+Attaching to gateway, library, library-postgres, rating, rating-postgres, reservation, reservation-postgres
+rating-postgres       | The files belonging to this database system will be owned by user "postgres".
+rating-postgres       | This user must also own the server process.
+rating-postgres       | 
+rating-postgres       | The database cluster will be initialized with locale "en_US.utf8".
+rating-postgres       | The default database encoding has accordingly been set to "UTF8".
+rating-postgres       | The default text search configuration will be set to "english".
+rating-postgres       | 
+rating-postgres       | Data page checksums are disabled.
+rating-postgres       | 
+rating-postgres       | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+rating-postgres       | creating subdirectories ... ok
+rating-postgres       | selecting dynamic shared memory implementation ... posix
+rating-postgres       | selecting default max_connections ... 100
+rating-postgres       | selecting default shared_buffers ... 128MB
+rating-postgres       | selecting default time zone ... Etc/UTC
+rating-postgres       | creating configuration files ... ok
+library-postgres      | The files belonging to this database system will be owned by user "postgres".
+library-postgres      | This user must also own the server process.
+library-postgres      | 
+library-postgres      | The database cluster will be initialized with locale "en_US.utf8".
+library-postgres      | The default database encoding has accordingly been set to "UTF8".
+library-postgres      | The default text search configuration will be set to "english".
+library-postgres      | 
+library-postgres      | Data page checksums are disabled.
+library-postgres      | 
+library-postgres      | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+reservation-postgres  | The files belonging to this database system will be owned by user "postgres".
+reservation-postgres  | This user must also own the server process.
+reservation-postgres  | 
+reservation-postgres  | The database cluster will be initialized with locale "en_US.utf8".
+reservation-postgres  | The default database encoding has accordingly been set to "UTF8".
+reservation-postgres  | The default text search configuration will be set to "english".
+reservation-postgres  | 
+reservation-postgres  | Data page checksums are disabled.
+reservation-postgres  | 
+reservation-postgres  | fixing permissions on existing directory /var/lib/postgresql/data ... ok
+library-postgres      | creating subdirectories ... ok
+library-postgres      | selecting dynamic shared memory implementation ... posix
+reservation-postgres  | creating subdirectories ... ok
+reservation-postgres  | selecting dynamic shared memory implementation ... posix
+reservation-postgres  | selecting default max_connections ... 100
+library-postgres      | selecting default max_connections ... 100
+reservation-postgres  | selecting default shared_buffers ... 128MB
+library-postgres      | selecting default shared_buffers ... 128MB
+reservation-postgres  | selecting default time zone ... Etc/UTC
+reservation-postgres  | creating configuration files ... ok
+library-postgres      | selecting default time zone ... Etc/UTC
+library-postgres      | creating configuration files ... ok
+rating-postgres       | running bootstrap script ... ok
+reservation-postgres  | running bootstrap script ... ok
+library-postgres      | running bootstrap script ... ok
+rating-postgres       | performing post-bootstrap initialization ... ok
+library-postgres      | performing post-bootstrap initialization ... ok
+reservation-postgres  | performing post-bootstrap initialization ... ok
+rating-postgres       | syncing data to disk ... ok
+rating-postgres       | 
+rating-postgres       | 
+rating-postgres       | Success. You can now start the database server using:
+rating-postgres       | 
+rating-postgres       |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+rating-postgres       | 
+reservation-postgres  | syncing data to disk ... ok
+reservation-postgres  | 
+reservation-postgres  | 
+reservation-postgres  | Success. You can now start the database server using:
+reservation-postgres  | 
+reservation-postgres  |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+reservation-postgres  | 
+rating-postgres       | waiting for server to start....2024-12-29 18:50:18.488 UTC [48] LOG:  starting PostgreSQL 13.18 (Debian 13.18-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+rating-postgres       | 2024-12-29 18:50:18.496 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+rating-postgres       | 2024-12-29 18:50:18.518 UTC [49] LOG:  database system was shut down at 2024-12-29 18:50:16 UTC
+rating-postgres       | 2024-12-29 18:50:18.535 UTC [48] LOG:  database system is ready to accept connections
+library-postgres      | syncing data to disk ... ok
+library-postgres      | 
+library-postgres      | 
+library-postgres      | Success. You can now start the database server using:
+library-postgres      | 
+library-postgres      |     pg_ctl -D /var/lib/postgresql/data -l logfile start
+library-postgres      | 
+reservation-postgres  | waiting for server to start....2024-12-29 18:50:18.593 UTC [49] LOG:  starting PostgreSQL 13.18 (Debian 13.18-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+reservation-postgres  | 2024-12-29 18:50:18.603 UTC [49] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+rating-postgres       |  done
+rating-postgres       | server started
+reservation-postgres  | 2024-12-29 18:50:18.625 UTC [50] LOG:  database system was shut down at 2024-12-29 18:50:17 UTC
+reservation-postgres  | 2024-12-29 18:50:18.648 UTC [49] LOG:  database system is ready to accept connections
+reservation-postgres  |  done
+reservation-postgres  | server started
+library-postgres      | waiting for server to start....2024-12-29 18:50:18.724 UTC [48] LOG:  starting PostgreSQL 13.18 (Debian 13.18-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+library-postgres      | 2024-12-29 18:50:18.750 UTC [48] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+library-postgres      | 2024-12-29 18:50:18.778 UTC [49] LOG:  database system was shut down at 2024-12-29 18:50:17 UTC
+rating-postgres       | 
+rating-postgres       | /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+rating-postgres       | 
+rating-postgres       | 2024-12-29 18:50:18.797 UTC [48] LOG:  received fast shutdown request
+library-postgres      | 2024-12-29 18:50:18.808 UTC [48] LOG:  database system is ready to accept connections
+rating-postgres       | waiting for server to shut down....2024-12-29 18:50:18.810 UTC [48] LOG:  aborting any active transactions
+rating-postgres       | 2024-12-29 18:50:18.816 UTC [48] LOG:  background worker "logical replication launcher" (PID 55) exited with exit code 1
+rating-postgres       | 2024-12-29 18:50:18.820 UTC [50] LOG:  shutting down
+library-postgres      |  done
+library-postgres      | server started
+reservation-postgres  | 
+reservation-postgres  | /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+reservation-postgres  | 
+reservation-postgres  | 2024-12-29 18:50:18.900 UTC [49] LOG:  received fast shutdown request
+rating-postgres       | 2024-12-29 18:50:18.912 UTC [48] LOG:  database system is shut down
+reservation-postgres  | waiting for server to shut down....2024-12-29 18:50:18.917 UTC [49] LOG:  aborting any active transactions
+reservation-postgres  | 2024-12-29 18:50:18.921 UTC [49] LOG:  background worker "logical replication launcher" (PID 56) exited with exit code 1
+reservation-postgres  | 2024-12-29 18:50:18.926 UTC [51] LOG:  shutting down
+rating-postgres       |  done
+rating-postgres       | server stopped
+rating-postgres       | 
+rating-postgres       | PostgreSQL init process complete; ready for start up.
+rating-postgres       | 
+library-postgres      | 
+library-postgres      | /usr/local/bin/docker-entrypoint.sh: ignoring /docker-entrypoint-initdb.d/*
+library-postgres      | 
+library-postgres      | waiting for server to shut down....2024-12-29 18:50:19.025 UTC [48] LOG:  received fast shutdown request
+library-postgres      | 2024-12-29 18:50:19.040 UTC [48] LOG:  aborting any active transactions
+library-postgres      | 2024-12-29 18:50:19.046 UTC [48] LOG:  background worker "logical replication launcher" (PID 55) exited with exit code 1
+library-postgres      | 2024-12-29 18:50:19.049 UTC [50] LOG:  shutting down
+reservation-postgres  | 2024-12-29 18:50:19.054 UTC [49] LOG:  database system is shut down
+reservation-postgres  |  done
+reservation-postgres  | server stopped
+reservation-postgres  | 
+reservation-postgres  | PostgreSQL init process complete; ready for start up.
+reservation-postgres  | 
+library-postgres      | 2024-12-29 18:50:19.112 UTC [48] LOG:  database system is shut down
+library-postgres      |  done
+library-postgres      | server stopped
+library-postgres      | 
+library-postgres      | PostgreSQL init process complete; ready for start up.
+library-postgres      | 
+rating                | No changes detected
+reservation           | No changes detected
+library               | No changes detected
+rating                | Operations to perform:
+rating                |   Apply all migrations: admin, auth, contenttypes, sessions
+rating                | Running migrations:
+reservation           | Operations to perform:
+reservation           |   Apply all migrations: admin, auth, contenttypes, sessions
+reservation           | Running migrations:
+rating                |   Applying contenttypes.0001_initial... OK
+reservation           |   Applying contenttypes.0001_initial... OK
+library               | Operations to perform:
+library               |   Apply all migrations: admin, auth, contenttypes, sessions
+library               | Running migrations:
+library               |   Applying contenttypes.0001_initial... OK
+rating                |   Applying auth.0001_initial... OK
+reservation           |   Applying auth.0001_initial... OK
+rating                |   Applying admin.0001_initial... OK
+rating                |   Applying admin.0002_logentry_remove_auto_add... OK
+reservation           |   Applying admin.0001_initial... OK
+reservation           |   Applying admin.0002_logentry_remove_auto_add... OK
+rating                |   Applying admin.0003_logentry_add_action_flag_choices... OK
+reservation           |   Applying admin.0003_logentry_add_action_flag_choices... OK
+rating                |   Applying contenttypes.0002_remove_content_type_name... OK
+library               |   Applying auth.0001_initial... OK
+reservation           |   Applying contenttypes.0002_remove_content_type_name... OK
+rating                |   Applying auth.0002_alter_permission_name_max_length... OK
+reservation           |   Applying auth.0002_alter_permission_name_max_length... OK
+rating                |   Applying auth.0003_alter_user_email_max_length... OK
+reservation           |   Applying auth.0003_alter_user_email_max_length... OK
+rating                |   Applying auth.0004_alter_user_username_opts... OK
+reservation           |   Applying auth.0004_alter_user_username_opts... OK
+library               |   Applying admin.0001_initial... OK
+reservation           |   Applying auth.0005_alter_user_last_login_null... OK
+rating                |   Applying auth.0005_alter_user_last_login_null... OK
+reservation           |   Applying auth.0006_require_contenttypes_0002... OK
+rating                |   Applying auth.0006_require_contenttypes_0002... OK
+library               |   Applying admin.0002_logentry_remove_auto_add... OK
+reservation           |   Applying auth.0007_alter_validators_add_error_messages... OK
+rating                |   Applying auth.0007_alter_validators_add_error_messages... OK
+library               |   Applying admin.0003_logentry_add_action_flag_choices... OK
+rating                |   Applying auth.0008_alter_user_username_max_length... OK
+reservation           |   Applying auth.0008_alter_user_username_max_length... OK
+library               |   Applying contenttypes.0002_remove_content_type_name... OK
+rating                |   Applying auth.0009_alter_user_last_name_max_length... OK
+reservation           |   Applying auth.0009_alter_user_last_name_max_length... OK
+library               |   Applying auth.0002_alter_permission_name_max_length... OK
+rating                |   Applying auth.0010_alter_group_name_max_length... OK
+library               |   Applying auth.0003_alter_user_email_max_length... OK
+reservation           |   Applying auth.0010_alter_group_name_max_length... OK
+library               |   Applying auth.0004_alter_user_username_opts... OK
+rating                |   Applying auth.0011_update_proxy_permissions... OK
+reservation           |   Applying auth.0011_update_proxy_permissions... OK
+library               |   Applying auth.0005_alter_user_last_login_null... OK
+rating                |   Applying auth.0012_alter_user_first_name_max_length... OK
+library               |   Applying auth.0006_require_contenttypes_0002... OK
+reservation           |   Applying auth.0012_alter_user_first_name_max_length... OK
+library               |   Applying auth.0007_alter_validators_add_error_messages... OK
+library               |   Applying auth.0008_alter_user_username_max_length... OK
+library               |   Applying auth.0009_alter_user_last_name_max_length... OK
+library               |   Applying auth.0010_alter_group_name_max_length... OK
+library               |   Applying auth.0011_update_proxy_permissions... OK
+library               |   Applying auth.0012_alter_user_first_name_max_length... OK
+rating                |   Applying sessions.0001_initial... OK
+reservation           |   Applying sessions.0001_initial... OK
+library               |   Applying sessions.0001_initial... OK

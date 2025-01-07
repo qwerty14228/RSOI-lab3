@@ -6,6 +6,11 @@
 			"key": "baseUrl",
 			"value": "http://localhost:8080",
 			"enabled": true
+		},
+		{
+		    "key": "username",
+			"value": "rsoi-user",
+            "enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",

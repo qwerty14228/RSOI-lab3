@@ -17,7 +17,22 @@ jobs:
 
       - uses: docker/setup-buildx-action@v2
 
-      # TODO build and run unit tests
+      # TODO here tests
+      - name: Run rating service unit tests
+        run: |
+          cd ./src/rsoi_rating
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          sh run_unit_tests.sh
+
+      - name: Run gateway service unit tests
+        run: |
+          cd ./src/rsoi_gateway
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          sh run_unit_tests.sh
 
       - name: Build images
         timeout-minutes: 10
@@ -31,29 +46,26 @@ jobs:
         env:
           WAIT_PORTS: 8080,8070,8060,8050
 
-      # TODO setup variant, service and port
-
       - name: Run API Tests
         timeout-minutes: 5
         run: ./scripts/test-script.sh
         env:
-          VARIANT: <variant>
-          SERVICE_NAME: <your service name>
-          PORT_NUMBER: <port number>
+          VARIANT: v4
+          SERVICE_NAME: rating
+          PORT_NUMBER: 8050
+          LIBRARY_POSTGRES_USER: "${{ secrets.LIBRARY_POSTGRES_USER }}"
+          LIBRARY_POSTGRES_PASSWORD: "${{ secrets.LIBRARY_POSTGRES_PASSWORD }}"
+          LIBRARY_POSTGRES_DB: "${{ secrets.LIBRARY_POSTGRES_DB }}"
+          RATING_POSTGRES_USER: "${{ secrets.RATING_POSTGRES_USER }}"
+          RATING_POSTGRES_PASSWORD: "${{ secrets.RATING_POSTGRES_PASSWORD }}"
+          RATING_POSTGRES_DB: "${{ secrets.RATING_POSTGRES_DB }}"
+          RESERVATION_POSTGRES_USER: "${{ secrets.RESERVATION_POSTGRES_USER }}"
+          RESERVATION_POSTGRES_PASSWORD: "${{ secrets.RESERVATION_POSTGRES_PASSWORD }}"
+          RESERVATION_POSTGRES_DB: "${{ secrets.RESERVATION_POSTGRES_DB }}"
 
       - uses: education/autograding@v1
         id: autograder
         continue-on-error: true
-
-      - name: Github auto grader mark
-        uses: Romanow/google-sheet-autograder-marker@v1.0
-        with:
-          google_token: ${{secrets.GOOGLE_API_KEY}}
-          sheet_id: "1xkgjUX6Qmk7rdJG-QPOToav-HWWtthJjnShIKnw3oIY"
-          homework_number: 3
-          user_column: 'D'
-          column_offset: 'F'
-          mark: "'+"
 
       - name: Stop containers
         if: always()

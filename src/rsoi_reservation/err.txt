@@ -1,0 +1,264 @@
+time="2024-12-29T21:50:12+03:00" level=warning msg="C:\\Users\\Hp\\RSOI_Labs\\RSOI-lab2\\docker-compose.yml: the attribute `version` is obsolete, it will be ignored, please remove it to avoid potential confusion"
+ Network rsoi-lab2_default  Creating
+ Network rsoi-lab2_default  Created
+ Volume "rsoi-lab2_reservation-postgres-data"  Creating
+ Volume "rsoi-lab2_reservation-postgres-data"  Created
+ Volume "rsoi-lab2_library-postgres-data"  Creating
+ Volume "rsoi-lab2_library-postgres-data"  Created
+ Volume "rsoi-lab2_rating-postgres-data"  Creating
+ Volume "rsoi-lab2_rating-postgres-data"  Created
+ Container reservation-postgres  Creating
+ Container rating-postgres  Creating
+ Container library-postgres  Creating
+ Container library-postgres  Created
+ Container reservation-postgres  Created
+ Container reservation  Creating
+ Container library  Creating
+ Container rating-postgres  Created
+ Container rating  Creating
+ Container library  Created
+ Container rating  Created
+ Container reservation  Created
+ Container gateway  Creating
+ Container gateway  Created
+rating-postgres       | initdb: warning: enabling "trust" authentication for local connections
+rating-postgres       | You can change this by editing pg_hba.conf or using the option -A, or
+rating-postgres       | --auth-local and --auth-host, the next time you run initdb.
+reservation-postgres  | initdb: warning: enabling "trust" authentication for local connections
+reservation-postgres  | You can change this by editing pg_hba.conf or using the option -A, or
+reservation-postgres  | --auth-local and --auth-host, the next time you run initdb.
+library-postgres      | initdb: warning: enabling "trust" authentication for local connections
+library-postgres      | You can change this by editing pg_hba.conf or using the option -A, or
+library-postgres      | --auth-local and --auth-host, the next time you run initdb.
+rating-postgres       | 2024-12-29 18:50:19.075 UTC [1] LOG:  starting PostgreSQL 13.18 (Debian 13.18-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+rating-postgres       | 2024-12-29 18:50:19.076 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+rating-postgres       | 2024-12-29 18:50:19.076 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+rating-postgres       | 2024-12-29 18:50:19.091 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+rating-postgres       | 2024-12-29 18:50:19.117 UTC [61] LOG:  database system was shut down at 2024-12-29 18:50:18 UTC
+rating-postgres       | 2024-12-29 18:50:19.138 UTC [1] LOG:  database system is ready to accept connections
+reservation-postgres  | 2024-12-29 18:50:19.227 UTC [1] LOG:  starting PostgreSQL 13.18 (Debian 13.18-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+reservation-postgres  | 2024-12-29 18:50:19.228 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+reservation-postgres  | 2024-12-29 18:50:19.228 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+library-postgres      | 2024-12-29 18:50:19.241 UTC [1] LOG:  starting PostgreSQL 13.18 (Debian 13.18-1.pgdg120+1) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+library-postgres      | 2024-12-29 18:50:19.242 UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+library-postgres      | 2024-12-29 18:50:19.242 UTC [1] LOG:  listening on IPv6 address "::", port 5432
+reservation-postgres  | 2024-12-29 18:50:19.259 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+library-postgres      | 2024-12-29 18:50:19.266 UTC [1] LOG:  listening on Unix socket "/var/run/postgresql/.s.PGSQL.5432"
+reservation-postgres  | 2024-12-29 18:50:19.296 UTC [62] LOG:  database system was shut down at 2024-12-29 18:50:18 UTC
+library-postgres      | 2024-12-29 18:50:19.303 UTC [61] LOG:  database system was shut down at 2024-12-29 18:50:19 UTC
+reservation-postgres  | 2024-12-29 18:50:19.318 UTC [1] LOG:  database system is ready to accept connections
+library-postgres      | 2024-12-29 18:50:19.338 UTC [1] LOG:  database system is ready to accept connections
+gateway               | Watching for file changes with StatReloader
+rating-postgres       | 2024-12-29 18:50:24.534 UTC [70] ERROR:  relation "rsoi_rating_app_rating" does not exist at character 13
+rating-postgres       | 2024-12-29 18:50:24.534 UTC [70] STATEMENT:  INSERT INTO "rsoi_rating_app_rating" ("username", "stars") VALUES ('rsoi-user', 100) RETURNING "rsoi_rating_app_rating"."id"
+rating                | Traceback (most recent call last):
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+rating                |     return self.cursor.execute(sql, params)
+rating                |            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/psycopg/cursor.py", line 97, in execute
+rating                |     raise ex.with_traceback(None)
+rating                | psycopg.errors.UndefinedTable: relation "rsoi_rating_app_rating" does not exist
+rating                | LINE 1: INSERT INTO "rsoi_rating_app_rating" ("username", "stars") V...
+rating                |                     ^
+rating                | 
+rating                | The above exception was the direct cause of the following exception:
+rating                | 
+rating                | Traceback (most recent call last):
+rating                |   File "/app/manage.py", line 22, in <module>
+rating                |     main()
+rating                |     ~~~~^^
+rating                |   File "/app/manage.py", line 18, in main
+rating                |     execute_from_command_line(sys.argv)
+rating                |     ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+rating                |     utility.execute()
+rating                |     ~~~~~~~~~~~~~~~^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+rating                |     self.fetch_command(subcommand).run_from_argv(self.argv)
+rating                |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/core/management/base.py", line 413, in run_from_argv
+rating                |     self.execute(*args, **cmd_options)
+rating                |     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/core/management/base.py", line 459, in execute
+rating                |     output = self.handle(*args, **options)
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/core/management/commands/loaddata.py", line 103, in handle
+rating                |     self.loaddata(fixture_labels)
+rating                |     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/core/management/commands/loaddata.py", line 164, in loaddata
+rating                |     self.load_label(fixture_label)
+rating                |     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/core/management/commands/loaddata.py", line 254, in load_label
+rating                |     if self.save_obj(obj):
+rating                |        ~~~~~~~~~~~~~^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/core/management/commands/loaddata.py", line 210, in save_obj
+rating                |     obj.save(using=self.using)
+rating                |     ~~~~~~~~^^^^^^^^^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/core/serializers/base.py", line 265, in save
+rating                |     models.Model.save_base(self.object, using=using, raw=True, **kwargs)
+rating                |     ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/db/models/base.py", line 997, in save_base
+rating                |     updated = self._save_table(
+rating                |         raw,
+rating                |     ...<4 lines>...
+rating                |         update_fields,
+rating                |     )
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/db/models/base.py", line 1160, in _save_table
+rating                |     results = self._do_insert(
+rating                |         cls._base_manager, using, fields, returning_fields, raw
+rating                |     )
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/db/models/base.py", line 1201, in _do_insert
+rating                |     return manager._insert(
+rating                |            ~~~~~~~~~~~~~~~^
+rating                |         [self],
+rating                |         ^^^^^^^
+rating                |     ...<3 lines>...
+rating                |         raw=raw,
+rating                |         ^^^^^^^^
+rating                |     )
+rating                |     ^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/db/models/manager.py", line 87, in manager_method
+rating                |     return getattr(self.get_queryset(), name)(*args, **kwargs)
+rating                |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/db/models/query.py", line 1847, in _insert
+rating                |     return query.get_compiler(using=using).execute_sql(returning_fields)
+rating                |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1836, in execute_sql
+rating                |     cursor.execute(sql, params)
+rating                |     ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+rating                |     return super().execute(sql, params)
+rating                |            ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+rating                |     return self._execute_with_wrappers(
+rating                |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+rating                |         sql, params, many=False, executor=self._execute
+rating                |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+rating                |     )
+rating                |     ^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+rating                |     return executor(sql, params, many, context)
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+rating                |     with self.db.wrap_database_errors:
+rating                |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+rating                |     raise dj_exc_value.with_traceback(traceback) from exc_value
+rating                |   File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+rating                |     return self.cursor.execute(sql, params)
+rating                |            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+rating                |   File "/usr/local/lib/python3.13/site-packages/psycopg/cursor.py", line 97, in execute
+rating                |     raise ex.with_traceback(None)
+rating                | django.db.utils.ProgrammingError: Problem installing fixture '/app/rsoi_rating_app/fixtures/data.yaml': Could not load rsoi_rating_app.Rating(pk=None): relation "rsoi_rating_app_rating" does not exist
+rating                | LINE 1: INSERT INTO "rsoi_rating_app_rating" ("username", "stars") V...
+rating                |                     ^
+library-postgres      | 2024-12-29 18:50:24.754 UTC [70] ERROR:  relation "rsoi_library_app_library" does not exist at character 8
+library-postgres      | 2024-12-29 18:50:24.754 UTC [70] STATEMENT:  UPDATE "rsoi_library_app_library" SET "library_uid" = '83575e127ce048ee993151919ff3c9ee'::uuid, "name" = 'Библиотека имени 7 Непьющих', "city" = 'Москва', "address" = '2-я Бауманская ул., д.5, стр.1' WHERE "rsoi_library_app_library"."id" = 1
+library               | Traceback (most recent call last):
+library               |   File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+library               |     return self.cursor.execute(sql, params)
+library               |            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/psycopg/cursor.py", line 97, in execute
+library               |     raise ex.with_traceback(None)
+library               | psycopg.errors.UndefinedTable: relation "rsoi_library_app_library" does not exist
+library               | LINE 1: UPDATE "rsoi_library_app_library" SET "library_uid" = '83575...
+library               |                ^
+library               | 
+library               | The above exception was the direct cause of the following exception:
+library               | 
+library               | Traceback (most recent call last):
+library               |   File "/app/manage.py", line 22, in <module>
+library               |     main()
+library               |     ~~~~^^
+library               |   File "/app/manage.py", line 18, in main
+library               |     execute_from_command_line(sys.argv)
+library               |     ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/core/management/__init__.py", line 442, in execute_from_command_line
+library               |     utility.execute()
+library               |     ~~~~~~~~~~~~~~~^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/core/management/__init__.py", line 436, in execute
+library               |     self.fetch_command(subcommand).run_from_argv(self.argv)
+library               |     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/core/management/base.py", line 413, in run_from_argv
+library               |     self.execute(*args, **cmd_options)
+library               |     ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/core/management/base.py", line 459, in execute
+library               |     output = self.handle(*args, **options)
+library               |   File "/usr/local/lib/python3.13/site-packages/django/core/management/commands/loaddata.py", line 103, in handle
+library               |     self.loaddata(fixture_labels)
+library               |     ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/core/management/commands/loaddata.py", line 164, in loaddata
+library               |     self.load_label(fixture_label)
+library               |     ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/core/management/commands/loaddata.py", line 254, in load_label
+library               |     if self.save_obj(obj):
+library               |        ~~~~~~~~~~~~~^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/core/management/commands/loaddata.py", line 210, in save_obj
+library               |     obj.save(using=self.using)
+library               |     ~~~~~~~~^^^^^^^^^^^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/core/serializers/base.py", line 265, in save
+library               |     models.Model.save_base(self.object, using=using, raw=True, **kwargs)
+library               |     ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/db/models/base.py", line 997, in save_base
+library               |     updated = self._save_table(
+library               |         raw,
+library               |     ...<4 lines>...
+library               |         update_fields,
+library               |     )
+library               |   File "/usr/local/lib/python3.13/site-packages/django/db/models/base.py", line 1129, in _save_table
+library               |     updated = self._do_update(
+library               |         base_qs, using, pk_val, values, update_fields, forced_update
+library               |     )
+library               |   File "/usr/local/lib/python3.13/site-packages/django/db/models/base.py", line 1194, in _do_update
+library               |     return filtered._update(values) > 0
+library               |            ~~~~~~~~~~~~~~~~^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/db/models/query.py", line 1278, in _update
+library               |     return query.get_compiler(self.db).execute_sql(CURSOR)
+library               |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 2003, in execute_sql
+library               |     cursor = super().execute_sql(result_type)
+library               |   File "/usr/local/lib/python3.13/site-packages/django/db/models/sql/compiler.py", line 1574, in execute_sql
+library               |     cursor.execute(sql, params)
+library               |     ~~~~~~~~~~~~~~^^^^^^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 122, in execute
+library               |     return super().execute(sql, params)
+library               |            ~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 79, in execute
+library               |     return self._execute_with_wrappers(
+library               |            ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+library               |         sql, params, many=False, executor=self._execute
+library               |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+library               |     )
+library               |     ^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 92, in _execute_with_wrappers
+library               |     return executor(sql, params, many, context)
+library               |   File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 100, in _execute
+library               |     with self.db.wrap_database_errors:
+library               |          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/django/db/utils.py", line 91, in __exit__
+library               |     raise dj_exc_value.with_traceback(traceback) from exc_value
+library               |   File "/usr/local/lib/python3.13/site-packages/django/db/backends/utils.py", line 105, in _execute
+library               |     return self.cursor.execute(sql, params)
+library               |            ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+library               |   File "/usr/local/lib/python3.13/site-packages/psycopg/cursor.py", line 97, in execute
+library               |     raise ex.with_traceback(None)
+library               | django.db.utils.ProgrammingError: Problem installing fixture '/app/rsoi_library_app/fixtures/data.yaml': Could not load rsoi_library_app.Library(pk=1): relation "rsoi_library_app_library" does not exist
+library               | LINE 1: UPDATE "rsoi_library_app_library" SET "library_uid" = '83575...
+library               |                ^
+reservation           | Watching for file changes with StatReloader
+rating                | Watching for file changes with StatReloader
+library               | Watching for file changes with StatReloader
+Gracefully stopping... (press Ctrl+C again to force)
+ Container gateway  Stopping
+ Container gateway  Stopped
+ Container rating  Stopping
+ Container reservation  Stopping
+ Container library  Stopping
+ Container library  Stopped
+ Container library-postgres  Stopping
+ Container library-postgres  Stopped
+ Container reservation  Stopped
+ Container reservation-postgres  Stopping
+ Container rating  Stopped
+ Container rating-postgres  Stopping
+ Container rating-postgres  Stopped
+ Container reservation-postgres  Stopped
+canceled
