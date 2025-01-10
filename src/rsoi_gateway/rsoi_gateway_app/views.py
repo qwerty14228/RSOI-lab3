@@ -102,7 +102,6 @@ class ReservationViewSet(viewsets.ViewSet):
       )
       self.library_client.update_book_available_count(library_book_id=lb['id'],
                                                       available_count=available_count - 1, user=request.user)
-      
       result = reservation
       result['reservationUid'] = result['reservation_uid']
       result['startDate'] = result['start_date']
@@ -116,33 +115,58 @@ class ReservationViewSet(viewsets.ViewSet):
    
    @action(detail=True, methods=['post'], url_name='return', url_path='return')
    def return_book(self, request, pk=None):
+      reservation=self.update_reservation_on_return(request)
+      lb=None
+      try:
+         lb=self.update_available_count_on_return(request, reservation)
+      except Exception as e:
+         print(e, file=stderr)
+         # TODO поставить в очередь
+         return Response(status=204)
+      try:
+         self.update_rating_on_return(request, reservation, lb)
+      except Exception as e:
+         print(e, file=stderr)
+         # TODO поставить в очередь
+      return Response(status=204)
+
+
+   def update_reservation_on_return(self, request):
       reservation=self.reservation_client.get_reservation(user=request.user, reservation_uid=pk)
+      if reservation['status'] != 'RENTED':
+         return reservation
+      reservation['status'] = 'RETURNED'
+      body = request.data
+      return_date = datetime.strptime(body['date'], '%Y-%m-%d')
+      till_date = datetime.strptime(reservation['till_date'], '%Y-%m-%d')
+      if till_date < return_date:
+         reservation['status'] = 'EXPIRED'
+      return reservation
+
+   def update_available_count_on_return(self, request, reservation):
       lb = self.library_client.get_library_book(library_uid=reservation['library_uid'], book_uid=reservation['book_uid'])
       if lb is None:
-         return Response(status=404)
+         return None
+      self.library_client.update_book_available_count(library_book_id=lb['id'],
+                                                      available_count=lb['available_count'] + 1, user=request.user)
+      return lb
+
+   def update_rating_on_return(self, request, reservation, lb):
       rating = self.rating_client.get_rating(user=request.user)
       if rating is None:
-         return Response(status=403)
-      if reservation['status'] != 'RENTED':
-         return Response(status=204)
-      rating_delta = 0
-      reservation_status = 'RETURNED'
+         return None
       body = request.data
-      if body['condition'] != lb['book']['condition']:
+      rating_delta = 0
+      if body['condition']!= lb['book']['condition']:
          rating_delta -= 10
       return_date = datetime.strptime(body['date'], '%Y-%m-%d')
       till_date = datetime.strptime(reservation['till_date'], '%Y-%m-%d')
       if till_date < return_date:
          rating_delta -= 10
-         reservation_status = 'EXPIRED'
       if rating_delta == 0:
          rating_delta = 1
-      self.library_client.update_book_available_count(library_book_id=lb['id'],
-                                                      available_count=lb['available_count'] + 1, user=request.user)
       self.rating_client.update_rating(rating_id=rating['id'], stars=rating['stars'] + rating_delta, user=request.user)
-      self.reservation_client.update_reservation(reservation_id=reservation['id'], status=reservation_status, user=request.user)
-      return Response(status=204)
-
+      return rating_delta
 
 def healthcheck_view(request):
     
