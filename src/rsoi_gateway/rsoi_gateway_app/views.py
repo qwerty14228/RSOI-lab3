@@ -1,6 +1,8 @@
-from django.http import HttpResponse
-
 from datetime import datetime
+
+from sys import stderr
+
+from django.http import HttpResponse
 
 from rest_framework import viewsets
 
@@ -36,10 +38,14 @@ class RatingViewSet(viewsets.ViewSet):
    def list(self, request):
       if not request.user.is_authenticated:
          return Response(status=401)
-      rating = self.client.get_rating(user=request.user)
-      if rating is None:
-         return Response(status=404)
-      return Response(rating)
+      try:
+         rating = self.client.get_rating(user=request.user)
+         if rating is None:
+            return Response(status=404)
+         return Response(rating)
+      except Exception as e:
+         print(e, file=stderr)
+         return Response(status=503, data={"message": "Bonus Service unavailable"})
 
 
 class ReservationViewSet(viewsets.ViewSet):
@@ -65,7 +71,15 @@ class ReservationViewSet(viewsets.ViewSet):
          results.append(result)
       return Response(results)
 
-   def create(self, request):
+   
+   def create(self, request): 
+      try: 
+         return self.do_create(request) 
+      except Exception as e:
+         print(e, file=stderr)
+         return Response(status=503, data={"message": "Bonus Service unavailable"})
+      
+   def do_create(self, request):
       if not request.user.is_authenticated:
          return Response(status=401)
       reservations = self.reservation_client.get_reservations(user=request.user, status='RENTED')
