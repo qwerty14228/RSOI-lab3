@@ -115,7 +115,7 @@ class ReservationViewSet(viewsets.ViewSet):
    
    @action(detail=True, methods=['post'], url_name='return', url_path='return')
    def return_book(self, request, pk=None):
-      reservation=self.update_reservation_on_return(request)
+      reservation=self.update_reservation_on_return(request, pk)
       lb=None
       try:
          lb=self.update_available_count_on_return(request, reservation)
@@ -131,7 +131,7 @@ class ReservationViewSet(viewsets.ViewSet):
       return Response(status=204)
 
 
-   def update_reservation_on_return(self, request):
+   def update_reservation_on_return(self, request, pk):
       reservation=self.reservation_client.get_reservation(user=request.user, reservation_uid=pk)
       if reservation['status'] != 'RENTED':
          return reservation
