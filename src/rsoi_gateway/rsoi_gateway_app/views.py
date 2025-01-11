@@ -1,8 +1,10 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from sys import stderr
 
 from django.http import HttpResponse
+
+from django_rq import get_queue
 
 from rest_framework import viewsets
 
@@ -121,15 +123,42 @@ class ReservationViewSet(viewsets.ViewSet):
          lb=self.update_available_count_on_return(request, reservation)
       except Exception as e:
          print(e, file=stderr)
-         # TODO поставить в очередь
+         queue = get_queue('default')
+         queue.enqueue(self.handle_update_available_count_retry, self, request, reservation, datetime.now())
          return Response(status=204)
       try:
          self.update_rating_on_return(request, reservation, lb)
       except Exception as e:
          print(e, file=stderr)
-         # TODO поставить в очередь
+         queue = get_queue('default')
+         queue.enqueue(self.handle_update_rating_retry, self, request, reservation, lb, datetime.now())
       return Response(status=204)
+   
+   def handle_update_available_count_retry(self, request, reservation, original_datetime):
+      if original_datetime < datetime.now() - timedelta(minutes=2):
+         return
+      try:
+         lb=self.update_available_count_on_return(request, reservation)
+      except Exception as e:
+         print(e, file=stderr)
+         queue = get_queue('default')
+         queue.enqueue(self.handle_update_available_count_retry, self, request, reservation, datetime.now())
+      try:
+         self.update_rating_on_return(request, reservation, lb)
+      except Exception as e:
+         print(e, file=stderr)
+         queue = get_queue('default')
+         queue.enqueue(self.handle_update_rating_retry, self, request, reservation, lb, datetime.now())
 
+   def handle_update_rating_retry(self, request, reservation, lb, original_datetime):
+      if original_datetime < datetime.now() - timedelta(minutes=2):
+         return
+      try:
+         self.update_rating_on_return(request, reservation, lb)
+      except Exception as e:
+         print(e, file=stderr)
+         queue = get_queue('default')
+         queue.enqueue(self.handle_update_rating_retry, self, request, reservation, lb, datetime.now())
 
    def update_reservation_on_return(self, request, pk):
       reservation=self.reservation_client.get_reservation(user=request.user, reservation_uid=pk)
