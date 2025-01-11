@@ -142,13 +142,16 @@ else:
 
 APPEND_SLASH = False
 
-RQ_QUEUES = {
-    'default': {
-        'HOST': environ['REDIS_HOST'],
-        'PORT': 6379,
-        'DB': 0,
-        'USERNAME': environ['REDIS_USER'],
-        'PASSWORD': environ['REDIS_PASSWORD'],
-        'DEFAULT_TIMEOUT': 360,
-    },
-}
+if 'RUN_UNIT_TESTS' in environ:
+    RQ_QUEUES = {}
+else:
+    RQ_QUEUES = {
+        'default': {
+            'HOST': environ['REDIS_HOST'],
+            'PORT': 6379,
+            'DB': 0,
+            'USERNAME': environ['REDIS_USER'],
+            'PASSWORD': environ['REDIS_PASSWORD'],
+            'DEFAULT_TIMEOUT': 360,
+        },
+    }
