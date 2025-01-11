@@ -94,11 +94,19 @@ services:
     restart: on-failure
     ports: 
       - "8070:8070"
+  gateway-redis: 
+    image: redis:alpine
+    container_name: gateway-redis
+    pull_policy: if_not_present
+    restart: on-failure
+    volumes: 
+      - gateway-redis-data:/data
   gateway: 
     depends_on: 
       - library
       - rating
       - reservation
+      - gateway-redis
     image: gateway:latest
     container_name: gateway
     pull_policy: never 
@@ -111,6 +119,9 @@ services:
       LIBRARY_API_URL: "http://library:8060/api/v1"
       RATING_API_URL: "http://rating:8050/api/v1"
       RESERVATION_API_URL: "http://reservation:8070/api/v1"
+      REDIS_HOST: "gateway-redis"
+      REDIS_USER: "${GATEWAY_REDIS_USER}"
+      REDIS_PASSWORD: "${GATEWAY_REDIS_PASSWORD}"
     restart: on-failure
     ports: 
       - "8080:8080"
@@ -118,3 +129,4 @@ volumes:
   library-postgres-data:
   rating-postgres-data:
   reservation-postgres-data:
+  gateway-redis-data:
