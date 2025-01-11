@@ -119,7 +119,9 @@ services:
       LIBRARY_API_URL: "http://library:8060/api/v1"
       RATING_API_URL: "http://rating:8050/api/v1"
       RESERVATION_API_URL: "http://reservation:8070/api/v1"
-      GATEWAY_REDIS_CONN_STRING: "${GATEWAY_REDIS_CONN_STRING}"
+      REDIS_HOST: "gateway-redis"
+      REDIS_USER: "${GATEWAY_REDIS_USER}"
+      REDIS_PASSWORD: "${GATEWAY_REDIS_PASSWORD}"
     restart: on-failure
     ports: 
       - "8080:8080"

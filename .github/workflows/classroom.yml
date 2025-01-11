@@ -55,7 +55,8 @@ jobs:
           RESERVATION_POSTGRES_USER: "${{ secrets.RESERVATION_POSTGRES_USER }}"
           RESERVATION_POSTGRES_PASSWORD: "${{ secrets.RESERVATION_POSTGRES_PASSWORD }}"
           RESERVATION_POSTGRES_DB: "${{ secrets.RESERVATION_POSTGRES_DB }}"
-          GATEWAY_REDIS_CONN_STRING: "${{ secrets.GATEWAY_REDIS_CONN_STRING }}"
+          GATEWAY_REDIS_USER: "${{ secrets.GATEWAY_REDIS_USER }}"
+          GATEWAY_REDIS_PASSWORD: "${{ secrets.GATEWAY_REDIS_PASSWORD }}"
 
       - name: Run API Tests
         timeout-minutes: 5

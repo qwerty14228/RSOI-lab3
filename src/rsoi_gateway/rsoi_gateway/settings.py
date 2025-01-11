@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_rq',
     'rest_framework',
     'rsoi_gateway_app'
 ]
@@ -140,3 +141,14 @@ else:
     }
 
 APPEND_SLASH = False
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': environ['REDIS_HOST'],
+        'PORT': 6379,
+        'DB': 0,
+        'USERNAME': environ['REDIS_USER'],
+        'PASSWORD': environ['REDIS_PASSWORD'],
+        'DEFAULT_TIMEOUT': 360,
+    },
+}
