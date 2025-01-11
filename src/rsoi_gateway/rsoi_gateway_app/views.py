@@ -61,13 +61,18 @@ class ReservationViewSet(viewsets.ViewSet):
       reservations = self.reservation_client.get_reservations(user=request.user)
       results = []
       for reservation in reservations:
-         lb = self.library_client.get_library_book(library_uid=reservation['library_uid'], book_uid=reservation['book_uid'])
          result = reservation
          result['reservationUid'] = result['reservation_uid']
          result['startDate'] = result['start_date']
-         result['tillDate'] = result['till_date'] 
-         result["book"] = lb["book"]
-         result["library"] = lb["library"]
+         result['tillDate'] = result['till_date']
+         try:
+            lb = self.library_client.get_library_book(library_uid=reservation['library_uid'], book_uid=reservation['book_uid'])
+            result["book"] = lb["book"]
+            result["library"] = lb["library"]
+         except Exception as e:
+            print(e, file=stderr)
+            result["book"] = {"book_uid": reservation["book_uid"]}
+            result["library"] = {"library_uid": reservation["library_uid"]}
          result["book"]["bookUid"] = result["book"]["book_uid"]
          result["library"]["libraryUid"] = result["library"]["library_uid"]
          results.append(result)
