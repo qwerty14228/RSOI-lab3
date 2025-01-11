@@ -12,6 +12,7 @@ class Reservation(models.Model):
         ('RENTED', 'RENTED'),
         ('RETURNED', 'RETURNED'),
         ('EXPIRED', 'EXPIRED'),
+        ('CANCELED', 'CANCELED'),
     ]
     status = models.CharField(max_length=20, choices=STATUSES)
     start_date = models.DateField()
