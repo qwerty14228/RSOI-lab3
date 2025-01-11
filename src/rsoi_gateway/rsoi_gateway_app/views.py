@@ -102,8 +102,15 @@ class ReservationViewSet(viewsets.ViewSet):
          library_uid=body['libraryUid'], 
          till_date=body['tillDate']
       )
-      self.library_client.update_book_available_count(library_book_id=lb['id'],
-                                                      available_count=available_count - 1, user=request.user)
+      try:
+         self.library_client.update_book_available_count(
+            library_book_id=lb['id'],
+            available_count=available_count - 1, 
+            user=request.user
+         )
+      except Exception as e:
+         self.reservation_client.update_reservation(user=request.user, reservation_id=reservation['id'], status="CANCELED")
+         raise e
       result = reservation
       result['reservationUid'] = result['reservation_uid']
       result['startDate'] = result['start_date']
