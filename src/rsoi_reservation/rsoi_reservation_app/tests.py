@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from uuid import uuid4
 
 from django.test import TestCase
@@ -13,7 +15,7 @@ class ReservationTestCase(TestCase):
         Reservation.objects.create(
             reservation_uid=self.reservation_uid, username="test-user", 
             book_uid=self.book_uid, library_uid=self.library_uid, 
-            status="RENTED", start_date="2025-01-01", till_date="2025-02-01"
+            status="RENTED", start_date=datetime(year=2025, month=1, day=1), till_date=datetime(year=2025, month=2, day=1)
         )
 
     def test_reservation_read(self):
@@ -22,22 +24,22 @@ class ReservationTestCase(TestCase):
         self.assertEqual(reservation.library_uid, self.library_uid)
         self.assertEqual(reservation.status, "RENTED")
         self.assertEqual(reservation.username, "test-user")
-        self.assertEqual(reservation.start_date, "2025-01-01")
-        self.assertEqual(reservation.till_date, "2025-02-01")
+        self.assertEqual(reservation.start_date, datetime(year=2025, month=1, day=1))
+        self.assertEqual(reservation.till_date, datetime(year=2025, month=2, day=1))
 
     def test_reservation_creation(self):
         reservation_uid = uuid4()
         reservation = Reservation.objects.create(
             reservation_uid=reservation_uid, username="test-user2", 
             book_uid=self.book_uid, library_uid=self.library_uid, 
-            status="RETURNED", start_date="2025-01-10", till_date="2025-02-10"
+            status="RETURNED", start_date=datetime(year=2025, month=1, day=10), till_date=datetime(year=2025, month=2, day=10)
         )
         self.assertEqual(reservation.book_uid, self.book_uid)
         self.assertEqual(reservation.library_uid, self.library_uid)
         self.assertEqual(reservation.username, "test-user2")
         self.assertEqual(reservation.status, "RETURNED")
-        self.assertEqual(reservation.start_date, "2025-01-10")
-        self.assertEqual(reservation.till_date, "2025-02-10")
+        self.assertEqual(reservation.start_date, datetime(year=2025, month=1, day=10))
+        self.assertEqual(reservation.till_date, datetime(year=2025, month=2, day=10))
 
     def test_reservation_update(self):
         Reservation.objects.filter(reservation_uid=self.reservation_uid).update(status="EXPIRED")
