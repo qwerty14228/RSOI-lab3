@@ -18,10 +18,25 @@ jobs:
 
       - uses: docker/setup-buildx-action@v2
 
-      # TODO here tests
       - name: Run rating service unit tests
         run: |
           cd ./src/rsoi_rating
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          sh run_unit_tests.sh
+
+      - name: Run library service unit tests
+        run: |
+          cd ./src/rsoi_library
+          python3 -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+          sh run_unit_tests.sh
+
+      - name: Run reservation service unit tests
+        run: |
+          cd ./src/rsoi_reservation
           python3 -m venv venv
           source venv/bin/activate
           pip install -r requirements.txt
