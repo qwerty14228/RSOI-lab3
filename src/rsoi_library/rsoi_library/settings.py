@@ -78,16 +78,24 @@ WSGI_APPLICATION = 'rsoi_library.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'HOST': environ['POSTGRES_HOST'],
-        'PORT': 5432,
-        'USER': environ['POSTGRES_USER'],
-        'NAME': environ['POSTGRES_DB'],
-        'PASSWORD': environ['POSTGRES_PASSWORD'],
+if 'RUN_UNIT_TESTS' in environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:'
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'HOST': environ['POSTGRES_HOST'],
+            'PORT': 5432,
+            'USER': environ['POSTGRES_USER'],
+            'NAME': environ['POSTGRES_DB'],
+            'PASSWORD': environ['POSTGRES_PASSWORD'],
+        }
+    }
 
 
 # Password validation
@@ -131,11 +139,14 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': ['rsoi_common.auth.RsoiAuthentication'],
-    'DEFAULT_PAGINATION_CLASS': 'rsoi_library_app.pagination.Pagination',
-    'PAGE_SIZE': 100,
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
-}
+if 'RUN_UNIT_TESTS' in environ:
+    REST_FRAMEWORK = {}
+else:
+    REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASSES': ['rsoi_common.auth.RsoiAuthentication'],
+        'DEFAULT_PAGINATION_CLASS': 'rsoi_library_app.pagination.Pagination',
+        'PAGE_SIZE': 100,
+        'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+    }
 
 APPEND_SLASH = False
