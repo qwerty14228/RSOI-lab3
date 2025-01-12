@@ -85,7 +85,51 @@ class RatingClientTestCase(TestCase):
         self.assertIn('stars', data)
 
     
-# class ReservationsTestCase(TestCase):
+class ReservationsTestCase(TestCase):
 
-#     def setUp(self):
-#         self.client = 
+    def setUp(self):
+        self.client = MockReservationClient()
+
+    def test_get_reservations(self):
+        data = self.client.get_reservations()
+        for item in data:
+            self.assertIn('username', item)
+            self.assertIn('reservation_uid', item)
+            self.assertIn('book_uid', item)
+            self.assertIn('library_uid', item)
+            self.assertIn('status', item)
+            self.assertIn('start_date', item)
+            self.assertIn('till_date', item)
+
+    def test_create_reservation(self):
+        data = self.client.create_reservation()
+        self.assertIsNotNone(data)
+        self.assertIn('username', data)
+        self.assertIn('reservation_uid', data)
+        self.assertIn('book_uid', data)
+        self.assertIn('library_uid', data)
+        self.assertIn('status', data)
+        self.assertIn('start_date', data)
+        self.assertIn('till_date', data)
+
+    def test_get_reservation(self):
+        data = self.client.get_reservation()
+        self.assertIsNotNone(data)
+        self.assertIn('username', data)
+        self.assertIn('reservation_uid', data)
+        self.assertIn('book_uid', data)
+        self.assertIn('library_uid', data)
+        self.assertIn('status', data)
+        self.assertIn('start_date', data)
+        self.assertIn('till_date', data)
+
+    def test_update_reservation(self):
+        data = self.client.update_reservation()
+        self.assertIsNotNone(data)
+        self.assertIn('username', data)
+        self.assertIn('reservation_uid', data)
+        self.assertIn('book_uid', data)
+        self.assertIn('library_uid', data)
+        self.assertIn('status', data)
+        self.assertIn('start_date', data)
+        self.assertIn('till_date', data)
